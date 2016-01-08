@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include<stdlib.h>
 #include <string.h>
 
 typedef struct ListNodeStruct {
@@ -43,7 +44,7 @@ int main()
     {
       if(head==NULL)
       {
-        head=malloc(sizeof(ListNode));
+        head = (ListNode*) malloc(sizeof(ListNode));
         head->value=i;
         head->next=NULL;
         c=head;
@@ -51,7 +52,7 @@ int main()
       }
       else 
       {
-        c->next=malloc(sizeof(ListNode));
+        c->next = (ListNode*) malloc(sizeof(ListNode));
         c->next->value=i;
         c->next->next=NULL;
         c=c->next;
@@ -66,5 +67,6 @@ int main()
     } else {
         printf("Not found cycle\n");
     }
+
     return 0;
 }
