@@ -6,6 +6,7 @@ typedef struct ListNodeStruct {
     struct ListNodeStruct *next;
 } ListNode;
 
+
 ListNode *head=NULL;
 ListNode *tail=NULL;
 
@@ -34,53 +35,31 @@ ListNode *detectCycle(ListNode *head) {
     }
 
 
-void list()
-{
-    FILE *fp=fopen("testdata","r");
-    char buf[256];
-    char *sbuf;
-    int tmp;
-    ListNode *cnode=NULL;
-
-    fgets(buf,256,fp);
-    sbuf=strtok(buf, " ");
-
-    while(sbuf!=NULL) {
-        tmp=atoi(sbuf);
-        sbuf=strtok(NULL, " ");
-
-        if(head==NULL) {
-            head=malloc(sizeof(ListNode));
-            head->value=tmp;
-            head->next=NULL;
-            cnode=head;
-            tail=head;
-        } else {
-            cnode->next=malloc(sizeof(ListNode));
-            cnode->next->value=tmp;
-            cnode->next->next=NULL;
-            cnode=cnode->next;
-            tail=cnode;
-        }
-    }
-    fgets(buf,256,fp);
-    tmp=atoi(buf);
-    cnode=head;
-    while(cnode!=NULL && cnode!=tail) {
-        if(cnode->value==tmp) {
-            tail->next=cnode;
-            break;
-        } else {
-            cnode=cnode->next;
-        }
-    }
-}
-
 int main()
 {
     ListNode *answer;
-    list();
-    //printlist();
+    ListNode *c=NULL;
+    for(int i=1;i<6;i++)
+    {
+      if(head==NULL)
+      {
+        head=malloc(sizeof(ListNode));
+        head->value=i;
+        head->next=NULL;
+        c=head;
+        tail=head;
+      }
+      else 
+      {
+        c->next=malloc(sizeof(ListNode));
+        c->next->value=i;
+        c->next->next=NULL;
+        c=c->next;
+        tail=c;
+      }
+    }
+    tail->next = head->next;
+    
     answer=detectCycle(head);
     if(answer!=NULL) {
         printf("Detected cycle at: %d\n",answer->value);
